@@ -5,11 +5,16 @@ public class Enemy : MonoBehaviour
     public float speed = 3f;
     public int damage = 10;
     public int health = 20;
+    public AudioSource hitSource;
+    public Transform hitPoint;
+    public GameObject HitEffect;
 
     private Transform target;
 
     void Start()
     {
+        hitSource = GetComponent<AudioSource>();
+
         target = FindObjectOfType<PlayerTower>().transform;
     }
 
@@ -21,6 +26,9 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        hitSource.Play();
+        Instantiate(HitEffect, hitPoint.position, hitPoint.rotation);
+
         health -= damage;
         if (health <= 0)
         {
@@ -30,7 +38,7 @@ public class Enemy : MonoBehaviour
 
     private void Die()
     {
-        Destroy(gameObject); // ”ничтожить объект врага
+        Destroy(gameObject, 0.5f); // ”ничтожить объект врага
     }
 
     private void OnCollisionEnter(Collision collision)

@@ -6,6 +6,13 @@ public class TowerGun : MonoBehaviour
     public Transform firePoint;
     public float fireRate = 1f;
     private float nextFireTime = 0f;
+    public AudioSource fireSource;
+    public GameObject fireEffect;
+
+    private void Start()
+    {
+        fireSource = GetComponent<AudioSource>();
+    }
 
     private void Update()
     {
@@ -34,6 +41,8 @@ public class TowerGun : MonoBehaviour
     private void Shoot()
     {
         Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        Instantiate(fireEffect, firePoint.position, firePoint.rotation);
+        fireSource.Play();
     }
 }
 
