@@ -11,11 +11,14 @@ public class Spawner : MonoBehaviour
     private bool gameWon = false;
     private bool gameLose = false;
     public PlayerTower playerTower;
+    public EndGameCanvas endGameCanvas;
 
 
     void Start()
     {
         playerTower = FindObjectOfType<PlayerTower>();
+
+        endGameCanvas = FindObjectOfType<EndGameCanvas>();
 
         StartCoroutine(SpawnWaves());
     }
@@ -41,6 +44,7 @@ public class Spawner : MonoBehaviour
         if (gameLose == false)
         {
             gameWon = true;
+            endGameCanvas.TurnOnWinScreen();
             Debug.Log("You win!");
         }
     }
